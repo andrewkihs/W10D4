@@ -1,4 +1,4 @@
-import { RECEIVE_TODO, RECEIVE_TODOS } from "../actions/todo_actions";
+import { RECEIVE_TODO, RECEIVE_TODOS, REMOVE_TODO } from "../actions/todo_actions";
 
 const initialState = {
   1: {
@@ -40,23 +40,30 @@ const newTodos = {
 
 const todosReducer = (state = initialState, action) => {
     Object.freeze(state);
-    const nextState = Object.assign({}, state);
+    let nextState = Object.assign({}, state);
+    let todosObj = {};
 
-  switch (action.type) {
-    case RECEIVE_TODO:
-        let idx = Object.keys(nextState["todos"]).keys.length
-        nextState["todos"][idx + 1] = action.todo;
-        return nextState;
-    case RECEIVE_TODOS:
-        let todosObj = {};
-        action.todos.forEach((ele, idx )=> {
-            todosObj[idx + 1] = ele; // obj keys start at 1
-        });
-        nextState["todos"] = todosObj;
-        return nextState;
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case RECEIVE_TODO:
+            let idx = Object.keys(nextState).length
+            nextState[idx + 1] = action.todo;
+            return nextState;
+        case RECEIVE_TODOS:
+            Object.keys(action.todos).forEach((key)=> {
+              todosObj[key] = action.todos[key]; // obj keys start at 1
+            });
+            nextState = todosObj;
+            return nextState;
+        case REMOVE_TODO:
+            delete nextState[action.id]
+            Object.keys(nextState).forEach((key, idx) => {
+              todosObj[idx+1] = nextState[key];
+            });
+            nextState = todosObj;
+            return nextState
+        default:
+            return state;
+    }
 };
 
 export default todosReducer;

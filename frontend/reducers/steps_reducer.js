@@ -24,8 +24,6 @@ const initialState = {
 const stepsReducer = (state = initialState, action) => {
   Object.freeze(state);
   let nextState = Object.assign({}, state);
-
-
   let stepsObj = {}
   
   switch (action.type) {
@@ -41,10 +39,6 @@ const stepsReducer = (state = initialState, action) => {
       return nextState;
     case REMOVE_STEP:
       delete nextState[action.id];
-      Object.keys(nextState).forEach((key, idx) => {
-        stepsObj[idx + 1] = nextState[key];
-      });
-      nextState = stepsObj;
       return nextState;
     default:
       return state;

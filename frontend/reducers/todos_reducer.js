@@ -44,25 +44,21 @@ const todosReducer = (state = initialState, action) => {
     let todosObj = {};
 
     switch (action.type) {
-        case RECEIVE_TODO:
-            let idx = Object.keys(nextState).length
-            nextState[idx + 1] = action.todo;
-            return nextState;
-        case RECEIVE_TODOS:
-            Object.keys(action.todos).forEach((key)=> {
-              todosObj[key] = action.todos[key]; // obj keys start at 1
-            });
-            nextState = todosObj;
-            return nextState;
-        case REMOVE_TODO:
-            delete nextState[action.id];
-            Object.keys(nextState).forEach((key, idx) => {
-              todosObj[idx+1] = nextState[key];
-            });
-            nextState = todosObj;
-            return nextState
-        default:
-            return state;
+      case RECEIVE_TODO:
+          let idx = Object.keys(nextState).length
+          nextState[idx + 1] = action.todo;
+          return nextState;
+      case RECEIVE_TODOS:
+          Object.keys(action.todos).forEach((key)=> {
+            todosObj[key] = action.todos[key]; // obj keys start at 1
+          });
+          nextState = todosObj;
+          return nextState;
+      case REMOVE_TODO:
+        delete nextState[action.id];
+        return nextState
+      default:
+          return state;
     }
 };
 

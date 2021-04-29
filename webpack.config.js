@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./components/react-minesweeper.jsx",
+  entry: "./frontend/todo_redux.jsx",
   output: {
     path: path.resolve(__dirname),
     filename: "bundle.js",

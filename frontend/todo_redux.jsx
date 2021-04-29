@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import configureStore from './store/store'
 import * as todoActions from "./actions/todo_actions"
 import { receiveTodo , receiveTodos, removeTodo } from "./actions/todo_actions"
+import { receiveStep , receiveSteps, removeStep } from "./actions/steps_actions"
 // import { RECEIVE_TODO, RECEIVE_TODOS }from ''
 // import RECEIVE_TODO from "./actions/todo_actions"
 // import RECEIVE_TODOS from "./actions/todo_actions";
@@ -32,12 +33,37 @@ document.addEventListener("DOMContentLoaded", () => {
           body: "get creamer",
           done: false,
         },
-      };
-store.getState(); // should return default state object
-store.dispatch(receiveTodo({ id: 3, title: "New Todo" }));
-store.getState(); // should include the newly added todo
+    };
+
+    const newSteps = {
+        1 : { id: 1, title: 'Dispatch actions', done: false, todo_id: 1 },
+        2 : { id: 2, title: 'Add print statements', done: false, todo_id: 2 },
+        3 : { id: 3, title: 'Go to the store', done: false, todo_id: 3 },
+        4 : { id: 4, title: 'Gooogle Redux', done: false, todo_id: 1 },
+    }
+
+    const singleTodo = {
+          id: 4,
+          title: "Make single todo",
+          body: "Just one please",
+          done: false,
+        }
+    const singleStep = { id: 5, title: 'Take a break!', done: false, todo_id: 1 };
+
+
 store.dispatch(receiveTodos(newTodos));
-console.log(store.getState()); // should return only the new todos
-store.dispatch(removeTodo(2));
-console.log(store.getState());
-})
+store.dispatch(receiveSteps(newSteps));
+console.log(store.getState()); // should return only the new todos and steps
+
+store.dispatch(receiveTodo(singleTodo));
+store.dispatch(receiveStep(singleStep));
+console.log(store.getState()); // should include the newly added todo and step
+
+// store.dispatch(receiveTodo({ id: 3, title: "Newer Todo" ...etc }));
+// store.dispatch(receiveStep({ id: 3, title: "Newer Step", done: true ...etc }));
+// console.log(store.getState()); // should update the previously added todo and step
+
+// store.dispatch(removeTodo(3));
+store.dispatch(removeStep(3));
+console.log(store.getState()); // should not include the previously added todo
+});

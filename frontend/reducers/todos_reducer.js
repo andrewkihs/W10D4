@@ -55,7 +55,7 @@ const todosReducer = (state = initialState, action) => {
             nextState = todosObj;
             return nextState;
         case REMOVE_TODO:
-            delete nextState[action.id]
+            delete nextState[action.id];
             Object.keys(nextState).forEach((key, idx) => {
               todosObj[idx+1] = nextState[key];
             });

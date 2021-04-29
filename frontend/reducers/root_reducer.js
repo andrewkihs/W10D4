@@ -1,4 +1,4 @@
-import combineReducers from 'redux'
+import { combineReducers } from 'redux'
 import todosReducer from './todos_reducer'
 
 const rootReducer = combineReducers({

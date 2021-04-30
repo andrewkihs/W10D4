@@ -14,6 +14,9 @@ const mDTP = (dispatch) => {
   return {
     receiveTodo: (todo) => {
       dispatch(TodoActions.receiveTodo(todo))
+    },
+    removeTodo: (id) => {
+      dispatch(TodoActions.removeTodo(id))
     }
   };
 };

@@ -32,8 +32,8 @@ const stepsReducer = (state = initialState, action) => {
       nextState[idx + 1] = action.step;
       return nextState;
     case RECEIVE_STEPS:
-      Object.keys(action.steps).forEach((key) => {
-        stepsObj[key] = action.steps[key];
+      action.steps.forEach((step, idx) => {
+        stepsObj[idx + 1] = step;
       });
       nextState = stepsObj;
       return nextState;

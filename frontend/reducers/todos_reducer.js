@@ -39,27 +39,27 @@ const newTodos = {
 };
 
 const todosReducer = (state = initialState, action) => {
-    Object.freeze(state);
-    let nextState = Object.assign({}, state);
-    let todosObj = {};
+  Object.freeze(state);
+  let nextState = Object.assign({}, state);
+  let todosObj = {};
 
-    switch (action.type) {
-      case RECEIVE_TODO:
-          let idx = Object.keys(nextState).length
-          nextState[idx + 1] = action.todo;
-          return nextState;
-      case RECEIVE_TODOS:
-          Object.keys(action.todos).forEach((key)=> {
-            todosObj[key] = action.todos[key]; // obj keys start at 1
-          });
-          nextState = todosObj;
-          return nextState;
-      case REMOVE_TODO:
-        delete nextState[action.id];
-        return nextState
-      default:
-          return state;
-    }
+  switch (action.type) {
+    case RECEIVE_TODO:
+      let idx = Object.keys(nextState).length
+      nextState[idx + 1] = action.todo;
+      return nextState;
+    case RECEIVE_TODOS:
+      action.todos.forEach((todo, idx)=> {
+        todosObj[idx + 1] = todo; // obj keys start at 1
+      });
+      nextState = todosObj;
+      return nextState;
+    case REMOVE_TODO:
+      delete nextState[action.id];
+      return nextState
+    default:
+      return state;
+  }
 };
 
 export default todosReducer;

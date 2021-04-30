@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoDetailView from './todo_detail_view';
 
 
 class TodoListItem extends React.Component {
@@ -11,16 +12,14 @@ class TodoListItem extends React.Component {
             toggleBtnText = 'Done'
         }
         this.state = {
-            done: toggleBtnText
+            done: toggleBtnText,
+            detail: false
         }
 
-        this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.handleStatusToggle = this.handleStatusToggle.bind(this);
+        this.handleDetailViewToggle = this.handleDetailViewToggle(this);
     }
-    handleDeleteClick() {
-        this.props.removeTodo(this.props.todo.id);
-        console.log("delete")
-    }
+
 
     handleStatusToggle(){
         let newTodo = Object.assign({}, this.props.todo);
@@ -33,15 +32,32 @@ class TodoListItem extends React.Component {
         }
     }
 
+    handleDetailViewToggle(){
+        const nextDetailStatus = !this.state.detail
+        this.setState({detail: true})
+    }
+
     render () {
-     
-        return(
-            <li>
-                {this.props.todo.title} {this.props.todo.status}
-                <button onClick={this.handleStatusToggle}>{this.state.done}</button>
-                <button onClick={this.handleDeleteClick}>Delete Todo</button>
-            </li> 
-        )
+        
+        if (this.state.detail){
+                return(
+                <li>
+                    {this.props.todo.title} {this.props.todo.status}
+                    <button onClick={this.handleStatusToggle}>{this.state.done}</button>
+                    <button onClick={this.handleDetailViewToggle}>Show details </button>
+                    <TodoDetailView todo={this.props.todo}/>
+                </li> 
+            )
+        } else{
+            return(
+                <li>
+                    {this.props.todo.title} {this.props.todo.status}
+                    <button onClick={this.handleStatusToggle}>{this.state.done}</button>
+                    <button onClick={this.handleDetailViewToggle}>Show details </button>
+                    
+                </li> 
+            )
+        }
     }
 }
 

@@ -7,6 +7,7 @@ import { receiveStep , receiveSteps, removeStep } from "./actions/steps_actions"
 import App from "./components/app"
 import Root from "./components/root"
 import { allTodos } from './reducers/selectors';
+
 // import { RECEIVE_TODO, RECEIVE_TODOS }from ''
 // import RECEIVE_TODO from "./actions/todo_actions"
 // import RECEIVE_TODOS from "./actions/todo_actions";
@@ -50,9 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
       { id: 4, title: 'Gooogle Redux', done: false, todo_id: 1 },
   ]
 
+  const singleTodo = {
+    id: 3,
+    title: "dont drink coffee",
+    body: "dont get creamer",
+    done: true,
+  };
+
 
   store.dispatch(receiveTodos(newTodos));
   store.dispatch(receiveSteps(newSteps));
+
+  //store.dispatch(receiveTodo(singleTodo));
 
   window.allTodos = allTodos;
   // const initialState = store.getState()

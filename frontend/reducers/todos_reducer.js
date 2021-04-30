@@ -46,7 +46,7 @@ const todosReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_TODO:
       let idx = Object.keys(nextState).length
-      nextState[idx + 1] = action.todo;
+      nextState[action.todo.id] = action.todo;
       return nextState;
     case RECEIVE_TODOS:
       action.todos.forEach((todo, idx)=> {
